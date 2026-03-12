@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Diagnosis Result</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:linear-gradient(135deg,#4facfe,#00f2fe);
+padding:40px;
+text-align:center;
+}
+
+.container{
+background:white;
+width:500px;
+margin:auto;
+padding:25px;
+border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+h2{
+color:#333;
+}
+
+.section{
+padding:12px;
+margin-top:12px;
+border-radius:8px;
+font-size:16px;
+}
+
+.disease{background:#ffe6e6;}
+.medicine{background:#e6ffe6;}
+.doctor{background:#fff4e6;}
+.severity{background:#f0f0ff;}
+
+.progress{
+width:100%;
+height:18px;
+background:#ddd;
+border-radius:10px;
+overflow:hidden;
+margin-top:10px;
+}
+
+.bar{
+width:90%;
+height:100%;
+background:#4CAF50;
+}
+
+button{
+margin-top:20px;
+padding:12px 20px;
+background:#ff6b6b;
+color:white;
+border:none;
+border-radius:8px;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+background:#ff4d4d;
+transform:scale(1.05);
+}
+
+.footer{
+margin-top:20px;
+font-size:13px;
+color:#555;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>🔍 Diagnosis Result</h2>
+
+<div id="result">Loading diagnosis...</div>
+
+<button onclick="findHospital()">🏥 Find Nearby Hospitals</button>
+
+<div class="footer">
+Smart AI Symptom Checker
+</div>
+
+</div>
+
+<script>
+
+const params=new URLSearchParams(window.location.search);
+const symptoms=params.get("symptoms");
+
+fetch(`http://localhost:3000/check-symptoms?symptoms=${symptoms}`)
+.then(res=>res.json())
+.then(data=>{
+
+document.getElementById("result").innerHTML=`
+
+<p><b>Symptoms:</b> ${data.symptoms}</p>
+
+<div class="section disease">
+<b>🦠 Disease:</b> ${data.possible_disease}
+</div>
+
+<div class="section medicine">
+<b>💊 Medicine:</b> ${data.suggested_medicine}
+</div>
+
+<div class="section doctor">
+<b>👨‍⚕ Doctor:</b> ${data.doctor_recommendation}
+</div>
+
+<div class="section severity">
+<b>Severity:</b> ${data.severity}
+</div>
+
+<h3>Diagnosis Confidence</h3>
+
+<div class="progress">
+<div class="bar"></div>
+</div>
+
+<p>90%</p>
+
+<h3>About Disease</h3>
+<p>${data.info}</p>
+
+<h3>Precautions</h3>
+<p>${data.precautions}</p>
+
+`;
+
+});
+
+function findHospital(){
+
+window.open("https://www.google.com/maps/search/hospitals+near+me");
+
+}
+
+</script>
+
+</body>
+</html>

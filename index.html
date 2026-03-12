@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Smart Symptom Checker</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:linear-gradient(135deg,#4facfe,#00f2fe);
+text-align:center;
+padding:40px;
+}
+
+.container{
+background:white;
+width:520px;
+margin:auto;
+padding:30px;
+border-radius:12px;
+box-shadow:0 10px 20px rgba(0,0,0,0.2);
+}
+
+.symptom-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+margin-top:20px;
+}
+
+.symptom-card{
+background:#f8f9ff;
+padding:12px;
+border-radius:10px;
+text-align:center;
+cursor:pointer;
+border:2px solid transparent;
+transition:0.3s;
+}
+
+.symptom-card:hover{
+background:#e8f0ff;
+transform:scale(1.05);
+}
+
+button{
+margin-top:20px;
+padding:10px 20px;
+background:#4CAF50;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>🩺 Smart Symptom Checker</h1>
+
+<div class="container">
+
+<h3>Select Your Symptoms</h3>
+
+<div class="symptom-grid">
+
+<label class="symptom-card"><input type="checkbox" value="fever"> 🤒 Fever</label>
+<label class="symptom-card"><input type="checkbox" value="cold"> 🤧 Cold</label>
+<label class="symptom-card"><input type="checkbox" value="cough"> 😷 Cough</label>
+<label class="symptom-card"><input type="checkbox" value="headache"> 🤕 Headache</label>
+<label class="symptom-card"><input type="checkbox" value="skin rash"> 🌡 Skin Rash</label>
+<label class="symptom-card"><input type="checkbox" value="eye redness"> 👁 Eye Redness</label>
+<label class="symptom-card"><input type="checkbox" value="watering eyes"> 💧 Watering Eyes</label>
+<label class="symptom-card"><input type="checkbox" value="sore throat"> 🗣 Sore Throat</label>
+<label class="symptom-card"><input type="checkbox" value="chest pain"> ❤️ Chest Pain</label>
+<label class="symptom-card"><input type="checkbox" value="breathlessness"> 😮‍💨 Breathlessness</label>
+<label class="symptom-card"><input type="checkbox" value="nausea"> 🤢 Nausea</label>
+<label class="symptom-card"><input type="checkbox" value="vomiting"> 🤮 Vomiting</label>
+<label class="symptom-card"><input type="checkbox" value="stomach pain"> 🫃 Stomach Pain</label>
+<label class="symptom-card"><input type="checkbox" value="fatigue"> 😴 Fatigue</label>
+<label class="symptom-card"><input type="checkbox" value="itching"> 🖐 Itching</label>
+
+</div>
+
+<button onclick="checkSymptoms()">Check Diagnosis</button>
+
+</div>
+
+<script>
+
+function checkSymptoms(){
+
+let selected=[];
+
+document.querySelectorAll('input:checked').forEach(el=>{
+selected.push(el.value);
+});
+
+if(selected.length===0){
+alert("Select at least one symptom");
+return;
+}
+
+const symptoms=selected.join(",");
+
+window.location.href=`result.html?symptoms=${symptoms}`;
+
+}
+
+</script>
+
+</body>
+</html>
